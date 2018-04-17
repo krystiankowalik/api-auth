@@ -1,4 +1,4 @@
-package com.krystiankowalik.verysecureapp4;
+package com.krystiankowalik.verysecureapp4.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

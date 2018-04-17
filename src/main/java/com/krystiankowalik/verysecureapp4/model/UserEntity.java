@@ -1,4 +1,4 @@
-package com.krystiankowalik.verysecureapp4;
+package com.krystiankowalik.verysecureapp4.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,9 +10,9 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "account")
-class Account {
+public class UserEntity {
 
-    public Account(String username, String password, boolean active) {
+    public UserEntity(String username, String password, boolean active) {
         this.username = username;
         this.password = password;
         this.active = active;

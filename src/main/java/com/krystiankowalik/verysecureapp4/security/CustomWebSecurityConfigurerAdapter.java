@@ -1,4 +1,4 @@
-package com.krystiankowalik.verysecureapp4;
+package com.krystiankowalik.verysecureapp4.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

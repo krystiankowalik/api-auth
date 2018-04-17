@@ -1,5 +1,6 @@
-package com.krystiankowalik.verysecureapp4;
+package com.krystiankowalik.verysecureapp4.service;
 
+import com.krystiankowalik.verysecureapp4.model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -15,17 +16,17 @@ import java.util.Collection;
 @Transactional
 class AccountUserDetailsService implements UserDetailsService {
 
-    private final AccountRepository accountRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    AccountUserDetailsService(AccountRepository accountRepository) {
-        this.accountRepository = accountRepository;
+    AccountUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return accountRepository.findByUsername(username)
+        return userRepository.findByUsername(username)
                 .map(account -> new UserDetails() {
                     @Override
                     public Collection<? extends GrantedAuthority> getAuthorities() {
