@@ -1,5 +1,6 @@
 package com.krystiankowalik.verysecureapp4.service;
 
+import com.krystiankowalik.verysecureapp4.model.CustomUserDetails;
 import com.krystiankowalik.verysecureapp4.model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,43 +28,7 @@ class AccountUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username)
-                .map(account -> new UserDetails() {
-                    @Override
-                    public Collection<? extends GrantedAuthority> getAuthorities() {
-                        return AuthorityUtils.createAuthorityList("ROLE_ADMIN", "ROLE_USER");
-                    }
-
-                    @Override
-                    public String getPassword() {
-                        System.out.println("Getting password: " + account.getPassword());
-                        return account.getPassword();
-                    }
-
-                    @Override
-                    public String getUsername() {
-                        return account.getUsername();
-                    }
-
-                    @Override
-                    public boolean isAccountNonExpired() {
-                        return account.isActive();
-                    }
-
-                    @Override
-                    public boolean isAccountNonLocked() {
-                        return account.isActive();
-                    }
-
-                    @Override
-                    public boolean isCredentialsNonExpired() {
-                        return account.isActive();
-                    }
-
-                    @Override
-                    public boolean isEnabled() {
-                        return account.isActive();
-                    }
-                })
+                .map(CustomUserDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException("couldn't find the usename " + username + "!"));
     }
 }

@@ -5,22 +5,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "account")
+@Entity(name = "users")
 public class UserEntity {
 
-    public UserEntity(String username, String password, boolean active) {
+    public UserEntity(String username, String password, boolean active, Set<Authority> authorities) {
         this.username = username;
         this.password = password;
         this.active = active;
+        this.authorities = authorities;
     }
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(length = 255)
     private String username, password;
     private boolean active;
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private Set<Authority> authorities;
 }
