@@ -60,11 +60,7 @@ public class DatabaseConfig {
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
         sessionFactoryBean.setDataSource(dataSource());
         sessionFactoryBean.setPackagesToScan(ENTITYMANAGER_PACKAGES_TO_SCAN);
-        Properties hibernateProperties = new Properties();
-        hibernateProperties.put("hibernate.dialect", HIBERNATE_DIALECT);
-        hibernateProperties.put("hibernate.show_sql", HIBERNATE_SHOW_SQL);
-        hibernateProperties.put("hibernate.hbm2ddl.auto", HIBERNATE_HBM2DDL_AUTO);
-        sessionFactoryBean.setHibernateProperties(hibernateProperties);
+        sessionFactoryBean.setHibernateProperties(hibernateProperties());
         return sessionFactoryBean;
     }
 
@@ -86,13 +82,17 @@ public class DatabaseConfig {
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
+        em.setJpaProperties(hibernateProperties());
+
+        return em;
+    }
+
+    private Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();
         hibernateProperties.put("hibernate.dialect", HIBERNATE_DIALECT);
         hibernateProperties.put("hibernate.show_sql", HIBERNATE_SHOW_SQL);
         hibernateProperties.put("hibernate.hbm2ddl.auto", HIBERNATE_HBM2DDL_AUTO);
-        em.setJpaProperties(hibernateProperties);
-
-        return em;
+        return hibernateProperties;
     }
 
 }

@@ -58,12 +58,13 @@ class AuthServiceConfiguration extends AuthorizationServerConfigurerAdapter {
                 .inMemory()
                 //.passwordEncoder(userPasswordEncoder)
                 .withClient("my-trusted-client")
-                .authorizedGrantTypes("password")
+                .authorizedGrantTypes("password", "refresh_token")
                 .scopes("openid")
-                //.scopes("read", "write", "trust")
+                .scopes("read", "write", "trust")
                 //.resourceIds("oauth2-resource")
                 .secret(userPasswordEncoder.encode("password"))
-                .accessTokenValiditySeconds(60);
+                .accessTokenValiditySeconds(6000)
+                .refreshTokenValiditySeconds(50000);
     }
 
     @Override
@@ -72,10 +73,14 @@ class AuthServiceConfiguration extends AuthorizationServerConfigurerAdapter {
         endpoints.authenticationManager(authenticationManager)
                 //.tokenStore(tokenStore())
                 .approvalStoreDisabled();
+
     }
+
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.passwordEncoder(userPasswordEncoder);
+        security.checkTokenAccess("isAuthenticated()")
+                .passwordEncoder(userPasswordEncoder);
+                //.allowFormAuthenticationForClients();
     }
 }

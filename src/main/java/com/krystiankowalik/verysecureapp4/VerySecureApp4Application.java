@@ -16,25 +16,6 @@ import java.util.HashSet;
 @SpringBootApplication
 public class VerySecureApp4Application {
 
-   /* @Bean
-    CommandLineRunner demo(UserRepository userRepository, @Autowired PasswordEncoder userPasswordEncoder) {
-        System.out.println("Hello!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!**********************");
-        System.out.println(userPasswordEncoder.encode("spring"));
-        userRepository.save(new UserEntity("jlong", userPasswordEncoder.encode("spring"), true,
-                new HashSet<>(Arrays.asList(new Authority(Authority.Role.USER), new Authority(Authority.Role.ADMIN)))));
-        System.out.println(userRepository.findAll());
-        return null;
-        *//*return args -> {
-            Stream.of("jlong,", User.withDefaultPasswordEncoder().username("jlong").password("spring").roles("USER").build().getPassword())
-                    .map(tpl -> tpl.split(","))
-                    .forEach(tpl -> accountRepository.save(new UserEntity(tpl[0], tpl[1], true)));
-            *//**//*Stream.of("jlong," + userPasswordEncoder.encode("spring"))
-                    .map(tpl -> tpl.split(","))
-                    .forEach(tpl -> accountRepository.save(new UserEntity(tpl[0], tpl[1], true)));*//**//*
-        };*//*
-    }*/
-
-
     public static void main(String[] args) {
         SpringApplication.run(VerySecureApp4Application.class, args);
     }
