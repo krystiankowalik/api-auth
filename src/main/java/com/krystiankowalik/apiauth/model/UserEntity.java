@@ -1,4 +1,4 @@
-package com.krystiankowalik.verysecureapp4.model;
+package com.krystiankowalik.apiauth.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

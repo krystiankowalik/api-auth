@@ -1,7 +1,7 @@
-package com.krystiankowalik.verysecureapp4.service;
+package com.krystiankowalik.apiauth.service;
 
-import com.krystiankowalik.verysecureapp4.model.UserEntity;
-import com.krystiankowalik.verysecureapp4.model.UserRepository;
+import com.krystiankowalik.apiauth.model.UserEntity;
+import com.krystiankowalik.apiauth.model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
