@@ -2,6 +2,7 @@ package com.krystiankowalik.apiauth.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +28,12 @@ class AuthServiceConfiguration extends AuthorizationServerConfigurerAdapter {
     private final PasswordEncoder userPasswordEncoder;
 
     private DataSource dataSource;
+
+    @Value("${security.clientId}")
+    private String CLIENT_ID;
+
+    @Value("${security.secret}")
+    private String SECRET;
 
     @Autowired
     AuthServiceConfiguration(AuthenticationManager authenticationManager, PasswordEncoder userPasswordEncoder, @Qualifier("dataSource") DataSource dataSource) {
@@ -57,12 +64,12 @@ class AuthServiceConfiguration extends AuthorizationServerConfigurerAdapter {
                 //.jdbc(dataSource)
                 .inMemory()
                 //.passwordEncoder(userPasswordEncoder)
-                .withClient("my-trusted-client")
+                .withClient(CLIENT_ID)
                 .authorizedGrantTypes("password", "refresh_token")
                 .scopes("openid")
                 .scopes("read", "write", "trust")
                 //.resourceIds("oauth2-resource")
-                .secret(userPasswordEncoder.encode("password"))
+                .secret(userPasswordEncoder.encode(SECRET))
                 .accessTokenValiditySeconds(6000)
                 .refreshTokenValiditySeconds(50000);
     }
@@ -81,6 +88,6 @@ class AuthServiceConfiguration extends AuthorizationServerConfigurerAdapter {
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security.checkTokenAccess("isAuthenticated()")
                 .passwordEncoder(userPasswordEncoder);
-                //.allowFormAuthenticationForClients();
+        //.allowFormAuthenticationForClients();
     }
 }
