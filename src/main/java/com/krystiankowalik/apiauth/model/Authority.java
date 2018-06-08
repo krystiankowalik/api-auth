@@ -2,12 +2,14 @@ package com.krystiankowalik.apiauth.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 
 @Data
+@EqualsAndHashCode(of = "authority")
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "authorities")
@@ -15,30 +17,19 @@ public class Authority implements GrantedAuthority {
 
     @Id @GeneratedValue
     private long id;
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private UserEntity userEntity;
-    private String role;
+    private String authority;
 
-    public Authority(Role role) {
-        this.role= role.description;
+    public Authority(String authority) {
+        this.authority = authority;
     }
 
     @Override
     public String getAuthority() {
-        return role;
+        return authority;
     }
 
-    public enum Role {
-        USER("ROLE_USER"), ADMIN("ROLE_ADMIN");
 
-         String description;
 
-        Role(String description) {
-            this.description = description;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-    }
 }

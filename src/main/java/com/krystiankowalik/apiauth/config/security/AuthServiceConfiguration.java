@@ -27,7 +27,7 @@ class AuthServiceConfiguration extends AuthorizationServerConfigurerAdapter {
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder userPasswordEncoder;
 
-    private DataSource dataSource;
+//    private DataSource dataSource;
 
     @Value("${security.clientId}")
     private String CLIENT_ID;
@@ -39,18 +39,18 @@ class AuthServiceConfiguration extends AuthorizationServerConfigurerAdapter {
     AuthServiceConfiguration(AuthenticationManager authenticationManager, PasswordEncoder userPasswordEncoder, @Qualifier("dataSource") DataSource dataSource) {
         this.authenticationManager = authenticationManager;
         this.userPasswordEncoder = userPasswordEncoder;
-        this.dataSource = dataSource;
+       // this.dataSource = dataSource;
     }
 
-    @Bean
+   /* @Bean
     public JdbcTokenStore tokenStore() {
         return new JdbcTokenStore(dataSource);
-    }
+    }*/
 
-    @Bean
+    /*@Bean
     protected AuthorizationCodeServices authorizationCodeServices() {
         return new JdbcAuthorizationCodeServices(dataSource);
-    }
+    }*/
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
